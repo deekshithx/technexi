@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+  body { margin:0; background:#000; }
+  * { box-sizing:border-box; }
+  @keyframes tx-in { from { opacity:0; transform:translateY(14px); } to { opacity:1; transform:translateY(0); } }
+  ::selection { background:rgba(141,230,196,.28); color:#111; }
+</style>
+</helmet>
+<div style="background:#000; color:#F5F5F7; font-family:-apple-system,BlinkMacSystemFont,'SF Pro Display','Segoe UI',Helvetica,Arial,sans-serif; min-height:100vh; -webkit-font-smoothing:antialiased;">
+
+  <!-- NAV -->
+  <nav style="position:sticky; top:0; z-index:10; backdrop-filter:blur(20px) saturate(180%); background:rgba(0,0,0,.68); border-bottom:1px solid rgba(255,255,255,.08);">
+    <div style="max-width:1120px; margin:0 auto; padding:0 32px; height:52px; display:flex; align-items:center; justify-content:space-between;">
+      <a href="Technexi Atlas.dc.html" style="text-decoration:none; font-weight:600; font-size:15px; letter-spacing:-0.01em; white-space:nowrap;"><span style="color:#F5F5F7;">Tech</span><span style="color:{{ accent }};">Nexi</span></a>
+      <div style="display:flex; align-items:center; gap:30px;">
+        <a href="Technexi Atlas.dc.html#atlas" style="color:rgba(245,245,247,.7); text-decoration:none; font-size:13px;" style-hover="color:#fff;">Atlas</a>
+        <a href="Ventures.dc.html" style="color:rgba(245,245,247,.7); text-decoration:none; font-size:13px;" style-hover="color:#fff;">Ventures</a>
+        <a href="Contact.dc.html" style="color:rgba(245,245,247,.7); text-decoration:none; font-size:13px;" style-hover="color:#fff;">Contact</a>
+        <a href="#roles" style="color:#fff; text-decoration:none; font-size:13px; font-weight:500;">Open roles</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <header style="position:relative; padding:110px 24px 70px; text-align:center; overflow:hidden;">
+    <div style="position:absolute; top:-20%; left:50%; transform:translateX(-50%); width:1200px; height:800px; background:radial-gradient(closest-side, rgba(141,230,196,.10), transparent 70%); pointer-events:none;"></div>
+    <div style="position:relative; max-width:760px; margin:0 auto;">
+      <div style="font-size:14px; font-weight:500; color:rgba(245,245,247,.5);">Careers at TechNexi</div>
+      <h1 style="margin:20px 0 0; font-size:clamp(36px,5.4vw,64px); line-height:1.08; font-weight:600; letter-spacing:-0.03em; text-wrap:balance;">Build the products enterprise teams actually rely on.</h1>
+      <p style="margin:24px auto 0; font-size:18px; line-height:1.6; color:rgba(245,245,247,.6); max-width:540px;">Small team, real ventures — from Atlas, our enterprise operations platform, to a car-ownership marketplace that went national on Shark Tank. We hire for judgment, not headcount.</p>
+    </div>
+  </header>
+
+  <!-- ROLES -->
+  <section id="roles" style="padding:40px 24px 140px;">
+    <div style="max-width:820px; margin:0 auto;">
+      <div style="font-size:13px; font-weight:600; letter-spacing:.04em; color:rgba(245,245,247,.45); text-transform:uppercase; padding-bottom:12px;">Open roles</div>
+
+      <div style="display:flex; flex-direction:column; border-top:1px solid rgba(255,255,255,.1);">
+        <sc-for list="{{ roles }}" as="role" hint-placeholder-count="2">
+          <div style="display:flex; align-items:center; justify-content:space-between; gap:24px; padding:32px 4px; border-bottom:1px solid rgba(255,255,255,.1);">
+            <div>
+              <div style="display:flex; align-items:center; gap:12px; flex-wrap:wrap;">
+                <h3 style="margin:0; font-size:21px; font-weight:600; letter-spacing:-0.01em;">{{ role.title }}</h3>
+                <span style="font-size:12px; font-weight:500; color:rgba(245,245,247,.45);">{{ role.type }} · {{ role.location }}</span>
+              </div>
+              <p style="margin:10px 0 0; font-size:15px; line-height:1.6; color:rgba(245,245,247,.55); max-width:520px;">{{ role.blurb }}</p>
+            </div>
+            <button type="button" data-role="{{ role.title }}" onClick="{{ openModal }}" style="flex-shrink:0; background:none; border:none; color:{{ accent }}; font-family:inherit; font-size:15px; font-weight:500; cursor:pointer; white-space:nowrap;" style-hover="opacity:.75;">Apply ›</button>
+          </div>
+        </sc-for>
+      </div>
+
+      <p style="margin-top:28px; font-size:14.5px; color:rgba(245,245,247,.45);">Don't see the right role? <a href="mailto:shivara666@gmail.com" style="color:{{ accent }}; text-decoration:none;">Write to us</a> — we read every note.</p>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer style="border-top:1px solid rgba(255,255,255,.08);">
+    <div style="max-width:1120px; margin:0 auto; padding:32px; display:flex; align-items:center; justify-content:space-between; gap:24px; flex-wrap:wrap;">
+      <span style="font-weight:600; font-size:15px; white-space:nowrap;"><span style="color:#F5F5F7;">Tech</span><span style="color:{{ accent }};">Nexi</span></span>
+      <span style="font-size:12.5px; color:rgba(245,245,247,.35);">© 2026 TechNexi</span>
+    </div>
+  </footer>
+
+  <!-- APPLICATION MODAL -->
+  <sc-if value="{{ modalOpen }}" hint-placeholder-val="{{ false }}">
+    <div style="position:fixed; inset:0; z-index:20; background:rgba(0,0,0,.6); backdrop-filter:blur(10px); display:flex; align-items:center; justify-content:center; padding:24px;" onClick="{{ closeModalBg }}">
+      <div style="width:100%; max-width:440px; background:#111113; border:1px solid rgba(255,255,255,.1); border-radius:20px; padding:40px; position:relative; animation:tx-in .25s ease both;" onClick="{{ stop }}">
+        <button type="button" onClick="{{ closeModal }}" style="position:absolute; top:18px; right:18px; width:30px; height:30px; border:none; border-radius:50%; background:rgba(255,255,255,.06); color:rgba(245,245,247,.7); font-size:16px; cursor:pointer;" style-hover="background:rgba(255,255,255,.12);">✕</button>
+
+        <sc-if value="{{ submitted }}" hint-placeholder-val="{{ false }}">
+          <div style="text-align:center; padding:20px 0 8px;">
+            <div style="width:44px; height:44px; margin:0 auto 18px; border-radius:50%; background:rgba(141,230,196,.14); display:flex; align-items:center; justify-content:center; color:{{ accent }}; font-size:20px;">✓</div>
+            <h3 style="margin:0; font-size:20px; font-weight:600;">Application received.</h3>
+            <p style="margin:12px 0 0; font-size:14.5px; line-height:1.6; color:rgba(245,245,247,.55);">Thanks, {{ name }} — we've noted your interest in {{ selectedRole }}. We review every application and will reach out if it's a fit.</p>
+          </div>
+        </sc-if>
+        <sc-if value="{{ notSubmitted }}" hint-placeholder-val="{{ true }}">
+          <div>
+            <div style="font-size:12px; font-weight:600; letter-spacing:.03em; color:{{ accent }}; text-transform:uppercase;">Apply — {{ selectedRole }}</div>
+            <h3 style="margin:14px 0 0; font-size:22px; font-weight:600;">Tell us about you.</h3>
+            <form onSubmit="{{ onSubmit }}" style="display:flex; flex-direction:column; gap:14px; margin-top:22px;">
+              <input type="text" required="{{ true }}" placeholder="Full name" value="{{ name }}" onChange="{{ onNameChange }}" style="width:100%; box-sizing:border-box; padding:13px 15px; border-radius:10px; border:1px solid rgba(255,255,255,.14); background:rgba(255,255,255,.03); color:#F5F5F7; font-family:inherit; font-size:14.5px; outline:none;" style-focus="border-color:{{ accent }};" />
+              <input type="email" required="{{ true }}" placeholder="Email" value="{{ email }}" onChange="{{ onEmailChange }}" style="width:100%; box-sizing:border-box; padding:13px 15px; border-radius:10px; border:1px solid rgba(255,255,255,.14); background:rgba(255,255,255,.03); color:#F5F5F7; font-family:inherit; font-size:14.5px; outline:none;" style-focus="border-color:{{ accent }};" />
+              <input type="url" placeholder="LinkedIn / portfolio (optional)" value="{{ link }}" onChange="{{ onLinkChange }}" style="width:100%; box-sizing:border-box; padding:13px 15px; border-radius:10px; border:1px solid rgba(255,255,255,.14); background:rgba(255,255,255,.03); color:#F5F5F7; font-family:inherit; font-size:14.5px; outline:none;" style-focus="border-color:{{ accent }};" />
+              <textarea placeholder="Why this role? (optional)" value="{{ note }}" onChange="{{ onNoteChange }}" rows="3" style="width:100%; box-sizing:border-box; padding:13px 15px; border-radius:10px; border:1px solid rgba(255,255,255,.14); background:rgba(255,255,255,.03); color:#F5F5F7; font-family:inherit; font-size:14.5px; outline:none; resize:vertical;" style-focus="border-color:{{ accent }};"></textarea>
+              <button type="submit" disabled="{{ sending }}" style="margin-top:4px; width:100%; padding:14px; border:none; border-radius:10px; background:{{ accent }}; color:#06100C; font-family:inherit; font-size:15px; font-weight:600; cursor:pointer;" style-hover="opacity:.9;">{{ submitLabel }}</button>
+              <sc-if value="{{ hasError }}" hint-placeholder-val="{{ false }}">
+                <p style="margin:2px 0 0; font-size:13px; color:#F0A890; line-height:1.5;">{{ error }}</p>
+              </sc-if>
+            </form>
+          </div>
+        </sc-if>
+      </div>
+    </div>
+  </sc-if>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1280,&quot;height&quot;:900},&quot;accent&quot;:{&quot;editor&quot;:&quot;color&quot;,&quot;default&quot;:&quot;#8DE6C4&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;options&quot;:[&quot;#8DE6C4&quot;,&quot;#7DD3FC&quot;,&quot;#A7F3D0&quot;,&quot;#C4B5FD&quot;],&quot;section&quot;:&quot;Brand&quot;}}">
+class Component extends DCLogic {
+  ACCESS_KEY = 'PASTE-YOUR-WEB3FORMS-ACCESS-KEY';
+
+  state = {
+    modalOpen: false, submitted: false, sending: false, error: '',
+    selectedRole: '', name: '', email: '', link: '', note: '',
+  };
+
+  ROLES = [
+    { title: 'Enterprise GTM', type: 'Full-time', location: 'Remote', blurb: 'Own early positioning and pipeline for Atlas — talking directly to CIOs, IT directors, and infrastructure leaders before the product is public.' },
+    { title: "Founder's Office", type: 'Full-time', location: 'Remote', blurb: 'Work directly with the founders across product, ops, and strategy — a generalist role for someone who wants to learn how a company gets built.' },
+  ];
+
+  renderVals() {
+    const accent = this.props.accent ?? '#8DE6C4';
+    return {
+      accent,
+      roles: this.ROLES,
+      modalOpen: this.state.modalOpen,
+      submitted: this.state.submitted,
+      notSubmitted: !this.state.submitted,
+      selectedRole: this.state.selectedRole,
+      name: this.state.name,
+      email: this.state.email,
+      link: this.state.link,
+      note: this.state.note,
+      sending: this.state.sending,
+      error: this.state.error,
+      hasError: !!this.state.error,
+      submitLabel: this.state.sending ? 'Sending…' : 'Submit application',
+
+      openModal: (e) => {
+        const role = e.currentTarget.getAttribute('data-role');
+        this.setState({ modalOpen: true, submitted: false, error: '', selectedRole: role });
+      },
+      closeModal: () => this.setState({ modalOpen: false }),
+      closeModalBg: () => this.setState({ modalOpen: false }),
+      stop: (e) => e.stopPropagation(),
+      onNameChange: (e) => this.setState({ name: e.target.value }),
+      onEmailChange: (e) => this.setState({ email: e.target.value }),
+      onLinkChange: (e) => this.setState({ link: e.target.value }),
+      onNoteChange: (e) => this.setState({ note: e.target.value }),
+
+      onSubmit: async (e) => {
+        e.preventDefault();
+        if (!this.state.name || !this.state.email.includes('@')) return;
+        if (!this.ACCESS_KEY || this.ACCESS_KEY.startsWith('PASTE-')) {
+          this.setState({ submitted: true });
+          return;
+        }
+        this.setState({ sending: true, error: '' });
+        try {
+          const res = await fetch('https://api.web3forms.com/submit', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+            body: JSON.stringify({
+              access_key: this.ACCESS_KEY,
+              subject: 'New application: ' + this.state.selectedRole,
+              from_name: 'TechNexi Careers',
+              name: this.state.name,
+              email: this.state.email,
+              role: this.state.selectedRole,
+              link: this.state.link || '(not provided)',
+              message: 'Role: ' + this.state.selectedRole + '\nName: ' + this.state.name + '\nEmail: ' + this.state.email + '\nLink: ' + (this.state.link || '(none)') + '\nNote: ' + (this.state.note || '(none)'),
+            }),
+          });
+          const data = await res.json();
+          if (data.success) this.setState({ submitted: true, sending: false });
+          else this.setState({ sending: false, error: data.message || 'Something went wrong. Please try again.' });
+        } catch (err) {
+          this.setState({ sending: false, error: 'Network error — please try again.' });
+        }
+      },
+    };
+  }
+}
+</script>
+</body>
+</html>
