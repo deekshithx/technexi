@@ -200,7 +200,7 @@
 </x-dc>
 <script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1280,&quot;height&quot;:900},&quot;accent&quot;:{&quot;editor&quot;:&quot;color&quot;,&quot;default&quot;:&quot;#8DE6C4&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;options&quot;:[&quot;#8DE6C4&quot;,&quot;#7DD3FC&quot;,&quot;#A7F3D0&quot;,&quot;#C4B5FD&quot;],&quot;section&quot;:&quot;Brand&quot;}}">
 class Component extends DCLogic {
-  ACCESS_KEY = 'PASTE-YOUR-WEB3FORMS-ACCESS-KEY';
+  GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwPPsGCowI6JhbA_KxqF7EDa_m_m5x6gXWParC70Z4EwZW3VWnv0pSKDh4_2WeHTQVk/exec';
 
   state = { modalOpen: false, submitted: false, sending: false, error: '', email: '', company: '' };
 
@@ -218,7 +218,7 @@ class Component extends DCLogic {
       hasError: !!this.state.error,
       submitLabel: this.state.sending ? 'Sending…' : 'Request access',
 
-      openModal: () => this.setState({ modalOpen: true, submitted: false, error: '' }),
+      openModal: () => this.setState({ modalOpen: true, submitted: false, error: '', email: '', company: '' }),
       closeModal: () => this.setState({ modalOpen: false }),
       closeModalBg: () => this.setState({ modalOpen: false }),
       stop: (e) => e.stopPropagation(),
@@ -227,30 +227,24 @@ class Component extends DCLogic {
 
       onSubmit: async (e) => {
         e.preventDefault();
+        if (this.state.sending || this.state.submitted) return;
         if (!this.state.email.includes('@')) return;
-        if (!this.ACCESS_KEY || this.ACCESS_KEY.startsWith('PASTE-')) {
-          this.setState({ submitted: true });
-          return;
-        }
         this.setState({ sending: true, error: '' });
         try {
-          const res = await fetch('https://api.web3forms.com/submit', {
+          const res = await fetch(this.GOOGLE_SCRIPT_URL, {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+            headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
-              access_key: this.ACCESS_KEY,
-              subject: 'New Atlas early-access request',
-              from_name: 'TechNexi Atlas',
+              formType: 'earlyAccess',
               email: this.state.email,
-              company: this.state.company || '(not provided)',
-              message: 'Early-access request from the TechNexi site.\nEmail: ' + this.state.email + '\nCompany: ' + (this.state.company || '(not provided)'),
+              company: this.state.company || '',
+              userAgent: navigator.userAgent,
             }),
           });
-          const data = await res.json();
-          if (data.success) this.setState({ submitted: true, sending: false });
-          else this.setState({ sending: false, error: data.message || 'Something went wrong. Please try again.' });
+          if (!res.ok) throw new Error('Request failed with status ' + res.status);
+          this.setState({ submitted: true, sending: false, company: '' });
         } catch (err) {
-          this.setState({ sending: false, error: 'Network error — please try again.' });
+          this.setState({ sending: false, error: 'Something went wrong — please try again.' });
         }
       },
     };
