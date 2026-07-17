@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+  body { margin:0; background:#000; }
+  * { box-sizing:border-box; }
+  @keyframes tx-in { from { opacity:0; transform:translateY(14px); } to { opacity:1; transform:translateY(0); } }
+  ::selection { background:rgba(141,230,196,.28); color:#111; }
+</style>
+</helmet>
+<div style="background:#000; color:#F5F5F7; font-family:-apple-system,BlinkMacSystemFont,'SF Pro Display','Segoe UI',Helvetica,Arial,sans-serif; min-height:100vh; -webkit-font-smoothing:antialiased;">
+
+  <!-- NAV -->
+  <nav style="position:sticky; top:0; z-index:10; backdrop-filter:blur(20px) saturate(180%); background:rgba(0,0,0,.68); border-bottom:1px solid rgba(255,255,255,.08);">
+    <div style="max-width:1120px; margin:0 auto; padding:0 32px; height:52px; display:flex; align-items:center; justify-content:space-between;">
+      <a href="index.html" style="text-decoration:none; font-weight:600; font-size:15px; letter-spacing:-0.01em; white-space:nowrap;"><span style="color:#F5F5F7;">Tech</span><span style="color:{{ accent }};">Nexi</span></a>
+      <div style="display:flex; align-items:center; gap:30px;">
+        <a href="index.html#atlas" style="color:rgba(245,245,247,.7); text-decoration:none; font-size:13px;" style-hover="color:#fff;">Atlas</a>
+        <a href="ventures.html" style="color:rgba(245,245,247,.7); text-decoration:none; font-size:13px;" style-hover="color:#fff;">Ventures</a>
+        <a href="careers.html" style="color:rgba(245,245,247,.7); text-decoration:none; font-size:13px;" style-hover="color:#fff;">Careers</a>
+        <a href="#contact" style="color:#fff; text-decoration:none; font-size:13px; font-weight:500;">Contact</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <header style="position:relative; padding:110px 24px 70px; text-align:center; overflow:hidden;">
+    <div style="position:absolute; top:-20%; left:50%; transform:translateX(-50%); width:1200px; height:800px; background:radial-gradient(closest-side, rgba(141,230,196,.10), transparent 70%); pointer-events:none;"></div>
+    <div style="position:relative; max-width:680px; margin:0 auto;">
+      <div style="font-size:14px; font-weight:500; color:rgba(245,245,247,.5);">Get in touch</div>
+      <h1 style="margin:20px 0 0; font-size:clamp(36px,5.4vw,60px); line-height:1.08; font-weight:600; letter-spacing:-0.03em; text-wrap:balance;">Talk to TechNexi.</h1>
+      <p style="margin:24px auto 0; font-size:18px; line-height:1.6; color:rgba(245,245,247,.6); max-width:480px;">Questions about Atlas, one of our ventures, or something else entirely — reach us directly.</p>
+    </div>
+  </header>
+
+  <!-- CONTACT DETAILS + FORM -->
+  <section id="contact" style="padding:20px 24px 140px;">
+    <div style="max-width:920px; margin:0 auto; display:grid; grid-template-columns:1fr 1.2fr; gap:0; border:1px solid rgba(255,255,255,.1); border-radius:20px; overflow:hidden;">
+
+      <div style="padding:48px 44px; background:rgba(255,255,255,.02); border-right:1px solid rgba(255,255,255,.1);">
+        <div style="font-size:13px; font-weight:600; letter-spacing:.04em; color:rgba(245,245,247,.45); text-transform:uppercase;">Direct</div>
+
+        <div style="margin-top:28px;">
+          <div style="font-size:12.5px; color:rgba(245,245,247,.45);">Email</div>
+          <a href="mailto:info@technexi.com" style="display:block; margin-top:6px; font-size:19px; font-weight:500; color:{{ accent }}; text-decoration:none;" style-hover="opacity:.8;">info@technexi.com</a>
+        </div>
+
+        <div style="margin-top:26px;">
+          <div style="font-size:12.5px; color:rgba(245,245,247,.45);">Phone</div>
+          <a href="tel:+918050834369" style="display:block; margin-top:6px; font-size:19px; font-weight:500; color:#F5F5F7; text-decoration:none;" style-hover="color:{{ accent }};">+91 80508 34369</a>
+        </div>
+
+        <div style="margin-top:40px; padding-top:28px; border-top:1px solid rgba(255,255,255,.1);">
+          <p style="margin:0; font-size:14px; line-height:1.6; color:rgba(245,245,247,.45);">Enterprise inquiries about Atlas are handled directly by the founding team.</p>
+        </div>
+      </div>
+
+      <div style="padding:48px 44px;">
+        <sc-if value="{{ submitted }}" hint-placeholder-val="{{ false }}">
+          <div style="text-align:center; padding-top:24px;">
+            <div style="width:44px; height:44px; margin:0 auto 18px; border-radius:50%; background:rgba(141,230,196,.14); display:flex; align-items:center; justify-content:center; color:{{ accent }}; font-size:20px;">✓</div>
+            <h3 style="margin:0; font-size:20px; font-weight:600;">Message sent.</h3>
+            <p style="margin:12px 0 0; font-size:14.5px; line-height:1.6; color:rgba(245,245,247,.55);">Thanks, {{ name }} — we'll get back to you at {{ email }} shortly.</p>
+          </div>
+        </sc-if>
+        <sc-if value="{{ notSubmitted }}" hint-placeholder-val="{{ true }}">
+          <div>
+            <h3 style="margin:0; font-size:20px; font-weight:600;">Send a message</h3>
+            <form onSubmit="{{ onSubmit }}" style="display:flex; flex-direction:column; gap:14px; margin-top:22px;">
+              <input type="text" required="{{ true }}" placeholder="Full name" value="{{ name }}" onChange="{{ onNameChange }}" style="width:100%; box-sizing:border-box; padding:13px 15px; border-radius:10px; border:1px solid rgba(255,255,255,.14); background:rgba(255,255,255,.03); color:#F5F5F7; font-family:inherit; font-size:14.5px; outline:none;" style-focus="border-color:{{ accent }};" />
+              <input type="email" required="{{ true }}" placeholder="Email" value="{{ email }}" onChange="{{ onEmailChange }}" style="width:100%; box-sizing:border-box; padding:13px 15px; border-radius:10px; border:1px solid rgba(255,255,255,.14); background:rgba(255,255,255,.03); color:#F5F5F7; font-family:inherit; font-size:14.5px; outline:none;" style-focus="border-color:{{ accent }};" />
+              <textarea required="{{ true }}" placeholder="Your message" value="{{ message }}" onChange="{{ onMessageChange }}" rows="4" style="width:100%; box-sizing:border-box; padding:13px 15px; border-radius:10px; border:1px solid rgba(255,255,255,.14); background:rgba(255,255,255,.03); color:#F5F5F7; font-family:inherit; font-size:14.5px; outline:none; resize:vertical;" style-focus="border-color:{{ accent }};"></textarea>
+              <button type="submit" disabled="{{ sending }}" style="margin-top:4px; width:100%; padding:14px; border:none; border-radius:10px; background:{{ accent }}; color:#06100C; font-family:inherit; font-size:15px; font-weight:600; cursor:pointer;" style-hover="opacity:.9;">{{ submitLabel }}</button>
+              <sc-if value="{{ hasError }}" hint-placeholder-val="{{ false }}">
+                <p style="margin:2px 0 0; font-size:13px; color:#F0A890; line-height:1.5;">{{ error }}</p>
+              </sc-if>
+            </form>
+          </div>
+        </sc-if>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer style="border-top:1px solid rgba(255,255,255,.08);">
+    <div style="max-width:1120px; margin:0 auto; padding:32px; display:flex; align-items:center; justify-content:space-between; gap:24px; flex-wrap:wrap;">
+      <span style="font-weight:600; font-size:15px; white-space:nowrap;"><span style="color:#F5F5F7;">Tech</span><span style="color:{{ accent }};">Nexi</span></span>
+      <span style="font-size:12.5px; color:rgba(245,245,247,.35);">© 2026 TechNexi</span>
+    </div>
+  </footer>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1280,&quot;height&quot;:900},&quot;accent&quot;:{&quot;editor&quot;:&quot;color&quot;,&quot;default&quot;:&quot;#8DE6C4&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;options&quot;:[&quot;#8DE6C4&quot;,&quot;#7DD3FC&quot;,&quot;#A7F3D0&quot;,&quot;#C4B5FD&quot;],&quot;section&quot;:&quot;Brand&quot;}}">
+class Component extends DCLogic {
+  ACCESS_KEY = 'PASTE-YOUR-WEB3FORMS-ACCESS-KEY';
+
+  state = { submitted: false, sending: false, error: '', name: '', email: '', message: '' };
+
+  renderVals() {
+    const accent = this.props.accent ?? '#8DE6C4';
+    return {
+      accent,
+      submitted: this.state.submitted,
+      notSubmitted: !this.state.submitted,
+      name: this.state.name,
+      email: this.state.email,
+      message: this.state.message,
+      sending: this.state.sending,
+      error: this.state.error,
+      hasError: !!this.state.error,
+      submitLabel: this.state.sending ? 'Sending…' : 'Send message',
+
+      onNameChange: (e) => this.setState({ name: e.target.value }),
+      onEmailChange: (e) => this.setState({ email: e.target.value }),
+      onMessageChange: (e) => this.setState({ message: e.target.value }),
+
+      onSubmit: async (e) => {
+        e.preventDefault();
+        if (!this.state.name || !this.state.email.includes('@') || !this.state.message) return;
+        if (!this.ACCESS_KEY || this.ACCESS_KEY.startsWith('PASTE-')) {
+          this.setState({ submitted: true });
+          return;
+        }
+        this.setState({ sending: true, error: '' });
+        try {
+          const res = await fetch('https://api.web3forms.com/submit', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+            body: JSON.stringify({
+              access_key: this.ACCESS_KEY,
+              subject: 'New contact message — TechNexi site',
+              from_name: 'TechNexi Contact',
+              name: this.state.name,
+              email: this.state.email,
+              message: this.state.message,
+            }),
+          });
+          const data = await res.json();
+          if (data.success) this.setState({ submitted: true, sending: false });
+          else this.setState({ sending: false, error: data.message || 'Something went wrong. Please try again.' });
+        } catch (err) {
+          this.setState({ sending: false, error: 'Network error — please try again.' });
+        }
+      },
+    };
+  }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+  body { margin:0; background:#000; }
+  * { box-sizing:border-box; }
+  ::selection { background:rgba(141,230,196,.28); color:#111; }
+</style>
+</helmet>
+<div style="background:#000; color:#F5F5F7; font-family:-apple-system,BlinkMacSystemFont,'SF Pro Display','Segoe UI',Helvetica,Arial,sans-serif; min-height:100vh; -webkit-font-smoothing:antialiased;">
+
+  <!-- NAV -->
+  <nav style="position:sticky; top:0; z-index:10; backdrop-filter:blur(20px) saturate(180%); background:rgba(0,0,0,.68); border-bottom:1px solid rgba(255,255,255,.08);">
+    <div style="max-width:1120px; margin:0 auto; padding:0 32px; height:52px; display:flex; align-items:center; justify-content:space-between;">
+      <a href="index.html" style="text-decoration:none; font-weight:600; font-size:15px; letter-spacing:-0.01em; white-space:nowrap;"><span style="color:#F5F5F7;">Tech</span><span style="color:{{ accent }};">Nexi</span></a>
+      <div style="display:flex; align-items:center; gap:30px;">
+        <a href="index.html#atlas" style="color:rgba(245,245,247,.7); text-decoration:none; font-size:13px;" style-hover="color:#fff;">Atlas</a>
+        <a href="ventures.html" style="color:#fff; text-decoration:none; font-size:13px; font-weight:500;">Ventures</a>
+        <a href="careers.html" style="color:rgba(245,245,247,.7); text-decoration:none; font-size:13px;" style-hover="color:#fff;">Careers</a>
+        <a href="contact.html" style="color:rgba(245,245,247,.7); text-decoration:none; font-size:13px;" style-hover="color:#fff;">Contact</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <header style="position:relative; padding:110px 24px 70px; text-align:center; overflow:hidden;">
+    <div style="position:absolute; top:-20%; left:50%; transform:translateX(-50%); width:1200px; height:800px; background:radial-gradient(closest-side, rgba(141,230,196,.10), transparent 70%); pointer-events:none;"></div>
+    <div style="position:relative; max-width:720px; margin:0 auto;">
+      <div style="font-size:14px; font-weight:500; color:rgba(245,245,247,.5);">Beyond Atlas</div>
+      <h1 style="margin:20px 0 0; font-size:clamp(36px,5.4vw,64px); line-height:1.08; font-weight:600; letter-spacing:-0.03em; text-wrap:balance;">A track record of shipping things people use.</h1>
+      <p style="margin:24px auto 0; font-size:18px; line-height:1.6; color:rgba(245,245,247,.6); max-width:540px;">Atlas is our flagship, but not our first product. Here's what else TechNexi has built — and helped others build.</p>
+    </div>
+  </header>
+
+  <!-- VENTURE 1: Shark Tank car ownership -->
+  <section style="border-top:1px solid rgba(255,255,255,.08); padding:100px 24px;">
+    <div style="max-width:920px; margin:0 auto;">
+      <div style="font-size:12.5px; font-weight:600; letter-spacing:.03em; color:{{ accent }}; text-transform:uppercase;">Featured on Shark Tank, Season 3</div>
+      <h2 style="margin:16px 0 0; font-size:clamp(26px,3.2vw,36px); font-weight:600; letter-spacing:-0.02em;">Fractional car ownership platform, built with a founder</h2>
+      <p style="margin:20px 0 0; font-size:17px; line-height:1.7; color:rgba(245,245,247,.6); max-width:640px;">Owning a car outright doesn't make sense for everyone who needs one. We helped a founder build the marketplace behind it — where several owners share a single vehicle, splitting purchase cost, usage schedule, and upkeep through one platform, with none of the informal spreadsheet-and-group-chat arrangements that usually make co-ownership painful.</p>
+      <p style="margin:16px 0 0; font-size:17px; line-height:1.7; color:rgba(245,245,247,.6); max-width:640px;">The platform pitched live on Shark Tank Season 3 — validating an idea that's since shaped how we approach every engagement: build for a real, specific frustration, not a market category.</p>
+    </div>
+  </section>
+
+  <!-- VENTURE 2: Flutter package -->
+  <section style="border-top:1px solid rgba(255,255,255,.08); background:rgba(255,255,255,.02); padding:100px 24px;">
+    <div style="max-width:920px; margin:0 auto;">
+      <div style="font-size:12.5px; font-weight:600; letter-spacing:.03em; color:rgba(245,245,247,.5); text-transform:uppercase;">Open source · Flutter package</div>
+      <h2 style="margin:16px 0 0; font-size:clamp(26px,3.2vw,36px); font-weight:600; letter-spacing:-0.02em;">animated_hint_textfield</h2>
+      <p style="margin:20px 0 0; font-size:17px; line-height:1.7; color:rgba(245,245,247,.6); max-width:640px;">A Flutter package that replaces the static placeholder text in an input field with hint text that animates in and out — the kind of small motion detail that makes a form feel considered instead of default. Drop it into any Flutter app in minutes, with no dependency baggage.</p>
+      <p style="margin:16px 0 0; font-size:17px; line-height:1.7; color:rgba(245,245,247,.6); max-width:640px;">It's a small package, but it's used in production apps well beyond our own — proof that we sweat details most teams skip, all the way down to a single text field.</p>
+      <a href="https://pub.dev/packages/animated_hint_textfield" target="_blank" rel="noopener" style="display:inline-flex; align-items:center; gap:8px; margin-top:28px; padding:13px 24px; border-radius:980px; background:{{ accent }}; color:#06100C; text-decoration:none; font-size:15px; font-weight:600;" style-hover="opacity:.88;">View on pub.dev ›</a>
+    </div>
+  </section>
+
+  <!-- VENTURE 3: Training -->
+  <section style="border-top:1px solid rgba(255,255,255,.08); padding:100px 24px;">
+    <div style="max-width:920px; margin:0 auto;">
+      <div style="font-size:12.5px; font-weight:600; letter-spacing:.03em; color:rgba(245,245,247,.5); text-transform:uppercase;">Training</div>
+      <h2 style="margin:16px 0 0; font-size:clamp(26px,3.2vw,36px); font-weight:600; letter-spacing:-0.02em;">Software training programs</h2>
+      <p style="margin:20px 0 0; font-size:17px; line-height:1.7; color:rgba(245,245,247,.6); max-width:640px;">Hands-on training for engineering teams, delivered by people who build production software for a living, not professional trainers reading slides. Sessions are built around the problems a team is actually facing, not a fixed curriculum.</p>
+    </div>
+  </section>
+
+  <!-- VENTURE 4: AI products -->
+  <section style="border-top:1px solid rgba(255,255,255,.08); background:rgba(255,255,255,.02); padding:100px 24px 120px;">
+    <div style="max-width:920px; margin:0 auto;">
+      <div style="font-size:12.5px; font-weight:600; letter-spacing:.03em; color:rgba(245,245,247,.5); text-transform:uppercase;">AI products</div>
+      <h2 style="margin:16px 0 0; font-size:clamp(26px,3.2vw,36px); font-weight:600; letter-spacing:-0.02em;">Local AI & designated agents</h2>
+      <p style="margin:20px 0 0; font-size:17px; line-height:1.7; color:rgba(245,245,247,.6); max-width:640px;">Models that run entirely on your own infrastructure, for teams that can't send their data to a third party. Alongside that, purpose-built agents assigned to a single, narrow job — not a general assistant, but something scoped enough to trust with production access.</p>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section style="border-top:1px solid rgba(255,255,255,.08); padding:120px 24px; text-align:center;">
+    <h2 style="margin:0; font-size:clamp(28px,3.6vw,40px); font-weight:600; letter-spacing:-0.02em;">Atlas is where we're focused next.</h2>
+    <a href="index.html#atlas" style="display:inline-flex; align-items:center; margin-top:28px; color:{{ accent }}; text-decoration:none; font-size:15px; font-weight:500;" style-hover="opacity:.8;">Read about Atlas ›</a>
+  </section>
+
+  <!-- FOOTER -->
+  <footer style="border-top:1px solid rgba(255,255,255,.08);">
+    <div style="max-width:1120px; margin:0 auto; padding:32px; display:flex; align-items:center; justify-content:space-between; gap:24px; flex-wrap:wrap;">
+      <span style="font-weight:600; font-size:15px; white-space:nowrap;"><span style="color:#F5F5F7;">Tech</span><span style="color:{{ accent }};">Nexi</span></span>
+      <span style="font-size:12.5px; color:rgba(245,245,247,.35);">© 2026 TechNexi</span>
+    </div>
+  </footer>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1280,&quot;height&quot;:900},&quot;accent&quot;:{&quot;editor&quot;:&quot;color&quot;,&quot;default&quot;:&quot;#8DE6C4&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;options&quot;:[&quot;#8DE6C4&quot;,&quot;#7DD3FC&quot;,&quot;#A7F3D0&quot;,&quot;#C4B5FD&quot;],&quot;section&quot;:&quot;Brand&quot;}}">
+class Component extends DCLogic {
+  renderVals() {
+    return { accent: this.props.accent ?? '#8DE6C4' };
+  }
+}
+</script>
+</body>
+</html>
