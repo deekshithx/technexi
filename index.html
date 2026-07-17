@@ -200,7 +200,7 @@
 </x-dc>
 <script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1280,&quot;height&quot;:900},&quot;accent&quot;:{&quot;editor&quot;:&quot;color&quot;,&quot;default&quot;:&quot;#8DE6C4&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;options&quot;:[&quot;#8DE6C4&quot;,&quot;#7DD3FC&quot;,&quot;#A7F3D0&quot;,&quot;#C4B5FD&quot;],&quot;section&quot;:&quot;Brand&quot;}}">
 class Component extends DCLogic {
-  GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwPPsGCowI6JhbA_KxqF7EDa_m_m5x6gXWParC70Z4EwZW3VWnv0pSKDh4_2WeHTQVk/exec';
+  GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxUQb_lALjIWqNJx1biSLokYv-SFbqQNOODSW0wyGGhJaMAfNLTa8yc9rUBqS9PfZ9j/exec';
 
   state = { modalOpen: false, submitted: false, sending: false, error: '', email: '', company: '' };
 
@@ -231,17 +231,16 @@ class Component extends DCLogic {
         if (!this.state.email.includes('@')) return;
         this.setState({ sending: true, error: '' });
         try {
-          const res = await fetch(this.GOOGLE_SCRIPT_URL, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-              formType: 'earlyAccess',
-              email: this.state.email,
-              company: this.state.company || '',
-              userAgent: navigator.userAgent,
-            }),
+          const params = new URLSearchParams({
+            formType: 'earlyAccess',
+            email: this.state.email,
+            company: this.state.company || '',
+            userAgent: navigator.userAgent,
           });
+          const res = await fetch(this.GOOGLE_SCRIPT_URL + '?' + params.toString());
           if (!res.ok) throw new Error('Request failed with status ' + res.status);
+          const data = await res.json();
+          if (!data.success) throw new Error(data.error || 'Something went wrong.');
           this.setState({ submitted: true, sending: false, company: '' });
         } catch (err) {
           this.setState({ sending: false, error: 'Something went wrong — please try again.' });
